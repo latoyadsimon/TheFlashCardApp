@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { readCard, readDeck, updateCard } from "../../utils/api";
+import Form from "./Form";
 
 const EditCard = () => {
   const history = useHistory();
@@ -55,7 +56,8 @@ const EditCard = () => {
 
   const formSubmit = async (event) => {
     event.preventDefault();
-    const response = await updateCard(cardFormData);
+    // const response = await updateCard(cardFormData);
+     await updateCard(cardFormData);
 
     setCardFormData({ front: "", back: "" });
     history.push(`/decks/${deckId}`);
@@ -66,55 +68,22 @@ const EditCard = () => {
   return (
     <div>
       <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item">
             <Link to="/">Home</Link>
           </li>
-          <li class="breadcrumb-item">
+          <li className="breadcrumb-item">
             <Link to={`/decks/${deckId}/`}>{decks.name}</Link>
           </li>
-          <li class="breadcrumb-item active" aria-current="page">
-            {`Edit Card ID: ${cardId}`}
+          <li className="breadcrumb-item active" aria-current="page">
+            {/* {`Edit Card ID: ${cardId}`} */}
+ {`Edit Card`}
           </li>
         </ol>
       </nav>
       {/* <div>This is the add card page</div> */}
       <h1>{`${decks.name}: Edit Card`}</h1>
-      <form onSubmit={formSubmit}>
-        <div className="form-group">
-          <label htmlFor="front">Front</label>
-          <textarea
-            className="form-control"
-            id="front"
-            name="front"
-            rows="3"
-            placeholder="Make a question about the topic you want to study."
-            value={cardFormData.front}
-            onChange={updateCardForm}
-          ></textarea>
-
-          <label htmlFor="back">Back</label>
-          <textarea
-            className="form-control"
-            id="back"
-            name="back"
-            rows="3"
-            placeholder="What is the answer to the question you made above?"
-            value={cardFormData.back}
-            onChange={updateCardForm}
-          ></textarea>
-          <button type="submit" className="btn btn-primary mx-2 my-2">
-            Submit
-          </button>
-          <Link
-            to={`/decks/${deckId}/`}
-            type="button"
-            className="btn btn-secondary"
-          >
-            Cancel
-          </Link>
-        </div>
-      </form>
+      <Form formSubmit={formSubmit} cardFormData={cardFormData} updateCardForm={updateCardForm} deckId={deckId}/>
     </div>
   );
 };

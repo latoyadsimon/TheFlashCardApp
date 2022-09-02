@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import React, { useState} from "react";
+import { useHistory } from "react-router-dom";
 
 const FlashCards = ({ cardId, cards, setCardId }) => {
   const [isFlipped, setIsFlipped] = useState(false);
